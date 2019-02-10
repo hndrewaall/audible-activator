@@ -29,6 +29,9 @@ def fetch_activation_bytes(username, password, options):
 
     # Step 0
     opts = webdriver.ChromeOptions()
+    opts.add_argument('--headless')
+    opts.add_argument('--no-sandbox')
+    opts.add_argument('--disable-dev-shm-usage')
     opts.add_argument("user-agent=Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko")
 
     # Step 1
@@ -72,7 +75,7 @@ def fetch_activation_bytes(username, password, options):
         elif os.path.isfile("/usr/local/bin/chromedriver"):  # macOS + Homebrew
             chromedriver_path = "/usr/local/bin/chromedriver"
         else:
-            chromedriver_path = "/usr/lib/chromium/chromedriver"
+            chromedriver_path = "/usr/bin/chromedriver"
 
 
         driver = webdriver.Chrome(chrome_options=opts,
@@ -110,6 +113,9 @@ def fetch_activation_bytes(username, password, options):
 
     # Step 3, de-register first, in order to stop hogging all activation slots
     # (there are 8 of them!)
+
+    import pdb; pdb.set_trace()
+
     durl = base_url_license + 'license/licenseForCustomerToken?' \
         + 'customer_token=' + data["playerToken"] + "&action=de-register"
     s.get(durl, headers=headers)
