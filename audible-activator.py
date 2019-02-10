@@ -63,7 +63,7 @@ def fetch_activation_bytes(username, password, options):
     }
 
     if options.firefox:
-        driver = webdriver.Firefox()
+        driver = webdriver.Firefox(executable_path="/usr/lib/chromium/geckodriver")
     else:
         if sys.platform == 'win32':
             chromedriver_path = "chromedriver.exe"
@@ -72,7 +72,7 @@ def fetch_activation_bytes(username, password, options):
         elif os.path.isfile("/usr/local/bin/chromedriver"):  # macOS + Homebrew
             chromedriver_path = "/usr/local/bin/chromedriver"
         else:
-            chromedriver_path = "./chromedriver"
+            chromedriver_path = "/usr/lib/chromium/chromedriver"
 
 
         driver = webdriver.Chrome(chrome_options=opts,
